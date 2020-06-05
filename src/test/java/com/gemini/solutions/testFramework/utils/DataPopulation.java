@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.testng.annotations.Test;
 
+import com.gemini.solutions.constants.DBQueries;
 import com.gemini.solutions.core.ApiExecutor;
 import com.gemini.solutions.database.DBFunctions;
 import com.gemini.solutions.model.V2AllResponse;
@@ -64,23 +65,11 @@ public class DataPopulation {
 			}
 		}
 		
-		String countQuery = "select count(*) as count from countries;";
-		int countryCount = 0;
-		ResultSet resultSet = dbFunctions.selectQuery(countQuery);
-		
-		while (resultSet.next()) {
-			countryCount = resultSet.getInt("count");
-		}
-		
-		countQuery = "select count(*) as count from borders;";
-		int borderCount = 0;
-		resultSet = dbFunctions.selectQuery(countQuery);
-		
-		while (resultSet.next()) {
-			borderCount = resultSet.getInt("count");
-		}
-		
 		dbFunctions.disconnectDataBase();
+		
+		int countryCount = dbFunctions.getCountFromDB(DBQueries.countryCountQuery);
+		
+		int borderCount = dbFunctions.getCountFromDB(DBQueries.borderCountQuery);
 		
 		assertEquals(countryCount, responseList.size());
 		assertEquals(borderCount, totalBorderCount);	

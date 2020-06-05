@@ -8,7 +8,13 @@
 
 	<test name="Test">
 		<classes>
-			<class name="com.gemini.solutions.testFramework.testClass.DataVerificationTest" />
+			<class name="com.gemini.solutions.testFramework.testClass.DataVerificationTest">
+				<methods>
+					<include name = "TC001_ListAllCountriesMissingInTablePresentInApiResponse" />
+					<include name = "TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi" />
+					<include name = "TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB" />
+				</methods>
+			</class>
 		</classes>
 	</test>
 </suite>

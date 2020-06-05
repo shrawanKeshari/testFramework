@@ -1,27 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results total="3" passed="3" failed="0" skipped="0">
+<testng-results total="1" passed="1" failed="0" skipped="0">
   <reporter-output>
-    <line>
-      <![CDATA[Successfully byte inserted]]>
-    </line>
   </reporter-output>
-  <suite started-at="2020-06-05T13:28:11Z" name="Suite" finished-at="2020-06-05T13:28:19Z" duration-ms="8233">
+  <suite started-at="2020-06-05T18:33:59Z" name="Suite" finished-at="2020-06-05T18:34:03Z" duration-ms="4611">
     <groups>
     </groups>
-    <test started-at="2020-06-05T13:28:11Z" name="Test" finished-at="2020-06-05T13:28:19Z" duration-ms="8233">
+    <test started-at="2020-06-05T18:33:59Z" name="Test" finished-at="2020-06-05T18:34:03Z" duration-ms="4611">
       <class name="com.gemini.solutions.testFramework.testClass.DataVerificationTest">
-        <test-method signature="TC001_ListAllCountriesMissingInTablePresentInApiResponse()[pri:0, instance:com.gemini.solutions.testFramework.testClass.DataVerificationTest@7ff2a664]" started-at="2020-06-05T18:58:11Z" name="TC001_ListAllCountriesMissingInTablePresentInApiResponse" description="List of all the countries which are missing in table: countries but present in API responseI have deleted some countries from my database and executed Query No 4 from data.sql file" finished-at="2020-06-05T18:58:16Z" duration-ms="4555" status="PASS">
-          <reporter-output>
-          </reporter-output>
-        </test-method> <!-- TC001_ListAllCountriesMissingInTablePresentInApiResponse -->
-        <test-method signature="TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi()[pri:0, instance:com.gemini.solutions.testFramework.testClass.DataVerificationTest@7ff2a664]" started-at="2020-06-05T18:58:16Z" name="TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi" description="All Countries of which data (Capital and Currency )between table and API having mismatchI have updated some of existing country data and can be found in data.sql file Query No 4" finished-at="2020-06-05T18:58:18Z" duration-ms="2068" status="PASS">
-          <reporter-output>
-            <line>
-              <![CDATA[Successfully byte inserted]]>
-            </line>
-          </reporter-output>
-        </test-method> <!-- TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi -->
-        <test-method signature="TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB()[pri:0, instance:com.gemini.solutions.testFramework.testClass.DataVerificationTest@7ff2a664]" started-at="2020-06-05T18:58:18Z" name="TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB" description="Execute the API and check whether country which has maximum number of countries bordering with are same or not between API and DB" finished-at="2020-06-05T18:58:19Z" duration-ms="1587" status="PASS">
+        <test-method signature="TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB()[pri:0, instance:com.gemini.solutions.testFramework.testClass.DataVerificationTest@4d339552]" started-at="2020-06-06T00:03:59Z" name="TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB" description="Execute the API and check whether country which has maximum number of countries bordering with are same or not between API and DB" finished-at="2020-06-06T00:04:03Z" duration-ms="4592" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB -->

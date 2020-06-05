@@ -3,8 +3,12 @@ package com.gemini.solutions.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import com.gemini.solutions.extentReporting.ExtentTestManager;
 import com.relevantcodes.extentreports.LogStatus;
@@ -91,5 +95,53 @@ public class DBFunctions {
 		}
 		System.out.println("Disconnected from database");
 		return true;
+	}
+	
+	public int getCountFromDB(String query) throws ClassNotFoundException, SQLException {
+		int count = 0;
+		connectDatabase();
+
+		ResultSet countSet = selectQuery(query);
+
+		try {
+			countSet.next();
+			count = countSet.getInt("count");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		disconnectDataBase();
+
+		return count;
+	}
+	
+	public List<HashMap<String, Object>> getDataFromDB(String query) throws ClassNotFoundException, SQLException {
+		connectDatabase();
+
+		List<HashMap<String, Object>> resultList = new ArrayList<HashMap<String, Object>>();
+
+		try {
+			ResultSet dataSet = selectQuery(query);
+			ResultSetMetaData resultSetMetaData = dataSet.getMetaData();
+			int columnCount = resultSetMetaData.getColumnCount();
+			while (dataSet.next()) {
+				HashMap<String, Object> resultMap = new HashMap<String, Object>();
+				for (int i = 1; i <= columnCount; i++) {
+					String columnName = resultSetMetaData.getColumnName(i);
+					resultMap.put(columnName, dataSet.getObject(columnName));
+				}
+
+				resultList.add(resultMap);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		disconnectDataBase();
+		
+		return resultList;
 	}
 }

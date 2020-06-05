@@ -3,37 +3,35 @@ package com.gemini.solutions.testFramework.testClass;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNotNull;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-
-import org.testng.Reporter;
 import org.testng.annotations.Test;
 
+import com.gemini.solutions.constants.DBQueries;
 import com.gemini.solutions.core.ApiExecutor;
 import com.gemini.solutions.database.DBFunctions;
 import com.gemini.solutions.extentReporting.ExtentTestManager;
 import com.gemini.solutions.model.V2AllResponse;
 import com.gemini.solutions.util.DateTimeUtil;
 import com.gemini.solutions.util.FileUtil;
+import com.gemini.solutions.util.TestCaseDetails;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.relevantcodes.extentreports.LogStatus;
-import com.relevantcodes.extentreports.converters.ReportParser;
 
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
 public class DataVerificationTest {
 
-	ApiExecutor apiExecutor = new ApiExecutor();
 	DBFunctions dbFunctions = new DBFunctions();
-	FileUtil fileUtil = new FileUtil();
 
 	public List<V2AllResponse> executeApi() {
+		ApiExecutor apiExecutor = new ApiExecutor();
+		
 		HashMap<String, Object> headerMap = new HashMap<String, Object>();
 		headerMap.put("Content-Type", ContentType.JSON);
 
@@ -56,41 +54,34 @@ public class DataVerificationTest {
 	@Test(description = "List of all the countries which are missing in table: countries but present in API response"
 			+ "I have deleted some countries from my database and executed Query No 4 from data.sql file")
 	public void TC001_ListAllCountriesMissingInTablePresentInApiResponse() throws ClassNotFoundException, SQLException {
-		ExtentTestManager.startTest("ListAllCountriesMissingInTablePresentInApiResponse",
-				"List of all the countries which are missing in table: countries but present in API response"
-						+ "I have deleted some countries from my database and executed Query No 4 from data.sql file");
+		ExtentTestManager.startTest(TestCaseDetails.TC001CASENAME.getValue(), TestCaseDetails.TC001CASEDESCRIPTION.getValue());
 
 		List<V2AllResponse> responseList = executeApi();
 
 		HashSet<String> countrySet = new HashSet<String>();
 
-		dbFunctions.connectDatabase();
-
-		String countQuery = "select Country from countries;";
-		ResultSet resultSet = dbFunctions.selectQuery(countQuery);
-
-		while (resultSet.next()) {
-			countrySet.add(resultSet.getString("Country"));
+		List<HashMap<String, Object>> dataList = dbFunctions.getDataFromDB(DBQueries.getCountry);
+		
+		for (HashMap<String, Object> hashMap : dataList) {
+			countrySet.add(String.valueOf(hashMap.get("Country")));
 		}
-
-		dbFunctions.disconnectDataBase();
 
 		for (V2AllResponse v2AllResponse : responseList) {
 			String currCountry = v2AllResponse.getName();
 			if (!countrySet.contains(currCountry)) {
-				System.out.println(currCountry);
-				ExtentTestManager.getTest().log(LogStatus.INFO, "Missing Countried Entry In Database", currCountry);
+				ExtentTestManager.getTest().log(LogStatus.INFO, "Missing Countries Entry In Database", currCountry);
 			}
 		}
 
 	}
 
 	@Test(description = "All Countries of which data (Capital and Currency )between table and API having mismatch"
-			+ "I have updated some of existing country data and can be found in data.sql file Query No 4")
+			+ "I have updated some of existing country data and can be found in data.sql file Query No 5")
 	public void TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi() throws ClassNotFoundException, SQLException {
-		ExtentTestManager.startTest("AllCountriesWhosDataMisMatchBetweenDBAndApi",
-				"All Countries of which data (Capital and Currency )between table and API having mismatch"
-						+ "I have updated some of existing country data and can be found in data.sql file Query No 4");
+		ExtentTestManager.startTest(TestCaseDetails.TC002CASENAME.getValue(), TestCaseDetails.TC002CASEDESCRIPTION.getValue());
+		
+		FileUtil fileUtil = new FileUtil();
+		
 		List<V2AllResponse> responseList = executeApi();
 
 		HashMap<String, List<String>> countryMap = new HashMap<String, List<String>>();
@@ -106,27 +97,21 @@ public class DataVerificationTest {
 			countryMap.put(country, capital_currencyList);
 		}
 
-		System.out.println(countryMap);
-
-		dbFunctions.connectDatabase();
-
-		String countQuery = "select Country, Capital, Currency_Code from countries;";
-		ResultSet resultSet = dbFunctions.selectQuery(countQuery);
+		List<HashMap<String, Object>> dataList = dbFunctions.getDataFromDB(DBQueries.getCountryCapitalCurrencyData);
 
 		StringBuilder fileOutput = new StringBuilder();
+		int mismatchCount = 0;
 
-		while (resultSet.next()) {
-			String currCountry = resultSet.getString("Country");
-			String currCapital = resultSet.getString("Capital");
-			String currCode = resultSet.getString("Currency_Code");
+		for (HashMap<String, Object> hashMap : dataList) {
+			String currCountry = String.valueOf(hashMap.get("Country"));
+			String currCapital = String.valueOf(hashMap.get("Capital"));
+			String currCode = String.valueOf(hashMap.get("Currency_Code"));
 
 			List<String> db_capital_currencyList = new ArrayList<String>();
 			db_capital_currencyList.add(currCapital);
 			db_capital_currencyList.add(currCode);
 
 			if (!countryMap.get(currCountry).equals(db_capital_currencyList)) {
-				ExtentTestManager.getTest().log(LogStatus.INFO, "Data Matched", "Country Found with mismatched data");
-
 				fileOutput.append("Country Name: ").append(currCountry).append("\n");
 				fileOutput.append("Data: Capital").append("\n");
 				fileOutput.append("API Value: ").append(countryMap.get(currCountry).get(0)).append("\n");
@@ -134,25 +119,28 @@ public class DataVerificationTest {
 				fileOutput.append("Data: Currency Code").append("\n");
 				fileOutput.append("API Value: ").append(countryMap.get(currCountry).get(1)).append("\n");
 				fileOutput.append("DB Value: ").append(db_capital_currencyList.get(1)).append("\n\n");
-
-//				ExtentTestManager.getTest().log(LogStatus.INFO, "Data Mismatch between API and DB", fileOutput.toString());
-				System.out.println(fileOutput.toString());
+				mismatchCount++;
 			}
 		}
 
-		dbFunctions.disconnectDataBase();
-		
-		ExtentTestManager.getTest().log(LogStatus.INFO, "Data Mismatch between API and DB", fileOutput.toString());
+		String formattedDate = DateTimeUtil.getFormattedDateTime("dd-MMM-yyyy_HH-mm-ss.SSS");
 
-		assertNotNull(fileUtil.writeByte(fileOutput.toString().getBytes(), ".//target//testOutput//mismatchData"
-				+ DateTimeUtil.getFormattedDateTime("dd-MMM-yyyy_HH-mm-ss.SSS") + ".txt"));
+		assertNotNull(fileUtil.writeByte(fileOutput.toString().getBytes(),
+				".//test-output/mismatchData//mismatchData" + formattedDate + ".txt"));
+
+		if (mismatchCount > 0) {
+			ExtentTestManager.getTest().log(LogStatus.INFO, "Data Matched",
+					mismatchCount + " Countries Found with mismatched data: " + "<a href='file://" + System.getProperty("user.dir")
+							+ "/test-output/mismatchData/mismatchData" + formattedDate + ".txt'>Click Here to open list</a>");
+		} else {
+			ExtentTestManager.getTest().log(LogStatus.INFO, "Data Matched", "No Country found with mismatched data");
+		}
 	}
 
 	@Test(description = "Execute the API and check whether country which has maximum number of countries bordering with are same or not between API and DB")
 	public void TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB()
 			throws ClassNotFoundException, SQLException {
-		ExtentTestManager.startTest("checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB",
-				"Execute the API and check whether country which has maximum number of countries bordering with are same or not between API and DB");
+		ExtentTestManager.startTest(TestCaseDetails.TC003CASENAME.getValue(), TestCaseDetails.TC003CASEDESCRIPTION.getValue());
 
 		List<V2AllResponse> responseList = executeApi();
 
@@ -169,27 +157,20 @@ public class DataVerificationTest {
 			}
 		}
 
-		System.out.println(countryNameforMaxBorderFromApi + " , " + maxBorderFromApi);
-
 		ExtentTestManager.getTest().log(LogStatus.INFO, "Country With Max Border From API",
 				countryNameforMaxBorderFromApi + " with " + maxBorderFromApi + " borders");
 
-		dbFunctions.connectDatabase();
+		List<HashMap<String, Object>> dataList = dbFunctions.getDataFromDB(DBQueries.getCountryWithBorderCount);
 
-		String countQuery = "select c.Country, COUNT(b.C_ID) AS count from borders b inner join countries c on c.CID=b.C_ID group by b.C_ID order by count desc limit 1;";
-		ResultSet resultSet = dbFunctions.selectQuery(countQuery);
 		String currCountry = null;
 		int borderCount = 0;
 
-		while (resultSet.next()) {
-			currCountry = resultSet.getString("Country");
-			borderCount = resultSet.getInt("count");
+		for (HashMap<String, Object> hashMap : dataList) {
+			currCountry = String.valueOf(hashMap.get("Country"));
+			borderCount = Integer.parseInt(String.valueOf(hashMap.get("count")));
 		}
 
-		dbFunctions.disconnectDataBase();
-
-		System.out.println(currCountry + " , " + borderCount);
-		ExtentTestManager.getTest().log(LogStatus.INFO, "Country With Max Border From API",
+		ExtentTestManager.getTest().log(LogStatus.INFO, "Country With Max Border From DB",
 				currCountry + " with " + borderCount + " borders");
 
 		assertEquals(countryNameforMaxBorderFromApi, currCountry);

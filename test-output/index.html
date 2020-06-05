@@ -90,7 +90,7 @@
               <div class="suite-section-content">
                 <ul>
                   <li>
-                    <span class="method-stats">3 methods,   3 passed</span>
+                    <span class="method-stats">1 method,   1 passed</span>
                   </li>
                   <li>
                     <span class="method-list-title passed">Passed methods</span>
@@ -99,16 +99,6 @@
                       <a href="#" panel-name="suite-Suite" class="show-methods passed suite-Suite"> (show)</a> <!-- show-methods passed suite-Suite -->
                     </span>
                     <div class="method-list-content passed suite-Suite">
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="com.gemini.solutions.testFramework.testClass.DataVerificationTest" class="method navigator-link" hash-for-method="TC001_ListAllCountriesMissingInTablePresentInApiResponse">TC001_ListAllCountriesMissingInTablePresentInApiResponse</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
-                      <span>
-                        <img src="passed.png" width="3%"/>
-                        <a href="#" panel-name="suite-Suite" title="com.gemini.solutions.testFramework.testClass.DataVerificationTest" class="method navigator-link" hash-for-method="TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi">TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi</a> <!-- method navigator-link -->
-                      </span>
-                      <br/>
                       <span>
                         <img src="passed.png" width="3%"/>
                         <a href="#" panel-name="suite-Suite" title="com.gemini.solutions.testFramework.testClass.DataVerificationTest" class="method navigator-link" hash-for-method="TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB">TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB</a> <!-- method navigator-link -->
@@ -132,24 +122,6 @@
               <span class="class-name">com.gemini.solutions.testFramework.testClass.DataVerificationTest</span>
             </div> <!-- main-panel-header rounded-window-top -->
             <div class="main-panel-content rounded-window-bottom">
-              <div class="method">
-                <div class="method-content">
-                  <a name="TC001_ListAllCountriesMissingInTablePresentInApiResponse">
-                  </a> <!-- TC001_ListAllCountriesMissingInTablePresentInApiResponse -->
-                  <span class="method-name">TC001_ListAllCountriesMissingInTablePresentInApiResponse</span>
-                  <em>
-(List of all the countries which are missing in table: countries but present in API responseI have deleted some countries from my database and executed Query No 4 from data.sql file)                  </em>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
-              <div class="method">
-                <div class="method-content">
-                  <a name="TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi">
-                  </a> <!-- TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi -->
-                  <span class="method-name">TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi</span>
-                  <em>
-(All Countries of which data (Capital and Currency )between table and API having mismatchI have updated some of existing country data and can be found in data.sql file Query No 4)                  </em>
-                </div> <!-- method-content -->
-              </div> <!-- method -->
               <div class="method">
                 <div class="method-content">
                   <a name="TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB">
@@ -177,7 +149,13 @@
   &lt;/listeners&gt;
   &lt;test name=&quot;Test&quot;&gt;
     &lt;classes&gt;
-      &lt;class name=&quot;com.gemini.solutions.testFramework.testClass.DataVerificationTest&quot;/&gt;
+      &lt;class name=&quot;com.gemini.solutions.testFramework.testClass.DataVerificationTest&quot;&gt;
+        &lt;methods&gt;
+          &lt;include name=&quot;TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB&quot;/&gt;
+          &lt;exclude name=&quot;TC001_ListAllCountriesMissingInTablePresentInApiResponse&quot;/&gt;
+          &lt;exclude name=&quot;TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi&quot;/&gt;
+        &lt;/methods&gt;
+      &lt;/class&gt; &lt;!-- com.gemini.solutions.testFramework.testClass.DataVerificationTest --&gt;
     &lt;/classes&gt;
   &lt;/test&gt; &lt;!-- Test --&gt;
 &lt;/suite&gt; &lt;!-- Suite --&gt;
@@ -217,24 +195,16 @@ data.addColumn('number', 'Number');
 data.addColumn('string', 'Method');
 data.addColumn('string', 'Class');
 data.addColumn('number', 'Time (ms)');
-data.addRows(3);
+data.addRows(1);
 data.setCell(0, 0, 0)
-data.setCell(0, 1, 'TC001_ListAllCountriesMissingInTablePresentInApiResponse')
+data.setCell(0, 1, 'TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB')
 data.setCell(0, 2, 'com.gemini.solutions.testFramework.testClass.DataVerificationTest')
-data.setCell(0, 3, 4555);
-data.setCell(1, 0, 1)
-data.setCell(1, 1, 'TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi')
-data.setCell(1, 2, 'com.gemini.solutions.testFramework.testClass.DataVerificationTest')
-data.setCell(1, 3, 2068);
-data.setCell(2, 0, 2)
-data.setCell(2, 1, 'TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB')
-data.setCell(2, 2, 'com.gemini.solutions.testFramework.testClass.DataVerificationTest')
-data.setCell(2, 3, 1587);
+data.setCell(0, 3, 4592);
 window.suiteTableData['Suite']= { tableData: data, tableDiv: 'times-div-Suite'}
 return data;
 }
               </script>
-              <span class="suite-total-time">Total running time: 8 seconds</span>
+              <span class="suite-total-time">Total running time: 4 seconds</span>
               <div id="times-div-Suite">
               </div> <!-- times-div-Suite -->
             </div> <!-- times-div -->
@@ -245,19 +215,22 @@ return data;
             <span class="header-content">Reporter output for Suite</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
-            <div class="reporter-method-div">
-              <span class="reporter-method-name">TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi</span>
-              <div class="reporter-method-output-div">
-                <span class="reporter-method-output">Successfully byte inserted</span>
-              </div> <!-- reporter-method-output-div -->
-            </div> <!-- reporter-method-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="ignored-methods-Suite" class="panel">
           <div class="main-panel-header rounded-window-top">
-            <span class="header-content">0 ignored methods</span>
+            <span class="header-content">2 ignored methods</span>
           </div> <!-- main-panel-header rounded-window-top -->
           <div class="main-panel-content rounded-window-bottom">
+            <div class="ignored-class-div">
+              <span class="ignored-class-name">com.gemini.solutions.testFramework.testClass.DataVerificationTest</span>
+              <div class="ignored-methods-div">
+                <span class="ignored-method-name">TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi</span>
+                <br/>
+                <span class="ignored-method-name">TC001_ListAllCountriesMissingInTablePresentInApiResponse</span>
+                <br/>
+              </div> <!-- ignored-methods-div -->
+            </div> <!-- ignored-class-div -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
         <div panel-name="chronological-Suite" class="panel">
@@ -268,16 +241,8 @@ return data;
             <div class="chronological-class">
               <div class="chronological-class-name">com.gemini.solutions.testFramework.testClass.DataVerificationTest</div> <!-- chronological-class-name -->
               <div class="test-method">
-                <span class="method-name">TC001_ListAllCountriesMissingInTablePresentInApiResponse</span>
-                <span class="method-start">0 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
-                <span class="method-name">TC002_AllCountriesWhosDataMisMatchBetweenDBAndApi</span>
-                <span class="method-start">4558 ms</span>
-              </div> <!-- test-method -->
-              <div class="test-method">
                 <span class="method-name">TC003_checkWhetherCountryReturnedSameForMaxNumberOfBoundaryFromAPIAndDB</span>
-                <span class="method-start">6628 ms</span>
+                <span class="method-start">0 ms</span>
               </div> <!-- test-method -->
           </div> <!-- main-panel-content rounded-window-bottom -->
         </div> <!-- panel -->
