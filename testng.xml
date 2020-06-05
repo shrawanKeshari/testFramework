@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+
+	 <listeners>
+		<listener class-name="com.gemini.solutions.listeners.TestListener" />
+		<listener class-name="com.gemini.solutions.listeners.AnnotationTransformer" />
+	</listeners>
+
+	<test name="Test">
+		<classes>
+			<class name="com.gemini.solutions.testFramework.testClass.DataVerificationTest" />
+		</classes>
+	</test>
+</suite>

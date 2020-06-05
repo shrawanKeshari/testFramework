@@ -1,0 +1,144 @@
+Country Name: Angola
+Data: Capital
+API Value: Luanda
+DB Value: test1
+Data: Currency Code
+API Value: AOA
+DB Value: T1
+
+Country Name: Benin
+Data: Capital
+API Value: Porto-Novo
+DB Value: test2
+Data: Currency Code
+API Value: XOF
+DB Value: T2
+
+Country Name: Chile
+Data: Capital
+API Value: Santiago
+DB Value: test3
+Data: Currency Code
+API Value: CLP
+DB Value: T3
+
+Country Name: Dominica
+Data: Capital
+API Value: Roseau
+DB Value: test4
+Data: Currency Code
+API Value: XCD
+DB Value: T4
+
+Country Name: Ecuador
+Data: Capital
+API Value: Quito
+DB Value: test5
+Data: Currency Code
+API Value: USD
+DB Value: T5
+
+Country Name: Finland
+Data: Capital
+API Value: Helsinki
+DB Value: test6
+Data: Currency Code
+API Value: EUR
+DB Value: T6
+
+Country Name: Micronesia (Federated States of)
+Data: Capital
+API Value: Palikir
+DB Value: test15
+Data: Currency Code
+API Value: null
+DB Value: T15
+
+Country Name: Gabon
+Data: Capital
+API Value: Libreville
+DB Value: test7
+Data: Currency Code
+API Value: XAF
+DB Value: T7
+
+Country Name: Hong Kong
+Data: Capital
+API Value: City of Victoria
+DB Value: test8
+Data: Currency Code
+API Value: HKD
+DB Value: T8
+
+Country Name: Indonesia
+Data: Capital
+API Value: Jakarta
+DB Value: test9
+Data: Currency Code
+API Value: IDR
+DB Value: T9
+
+Country Name: Jamaica
+Data: Capital
+API Value: Kingston
+DB Value: test10
+Data: Currency Code
+API Value: JMD
+DB Value: T10
+
+Country Name: Kazakhstan
+Data: Capital
+API Value: Astana
+DB Value: test11
+Data: Currency Code
+API Value: KZT
+DB Value: T11
+
+Country Name: Lebanon
+Data: Capital
+API Value: Beirut
+DB Value: test12
+Data: Currency Code
+API Value: LBP
+DB Value: T12
+
+Country Name: Moldova (Republic of)
+Data: Capital
+API Value: Chișinău
+DB Value: test16
+Data: Currency Code
+API Value: MDL
+DB Value: T16
+
+Country Name: French Polynesia
+Data: Capital
+API Value: Papeetē
+DB Value: test17
+Data: Currency Code
+API Value: XPF
+DB Value: T17
+
+Country Name: Virgin Islands (British)
+Data: Capital
+API Value: Road Town
+DB Value: test18
+Data: Currency Code
+API Value: null
+DB Value: T18
+
+Country Name: Vanuatu
+Data: Capital
+API Value: Port Vila
+DB Value: test14
+Data: Currency Code
+API Value: VUV
+DB Value: T14
+
+Country Name: Yemen
+Data: Capital
+API Value: Sana'a
+DB Value: test13
+Data: Currency Code
+API Value: YER
+DB Value: T13
+
